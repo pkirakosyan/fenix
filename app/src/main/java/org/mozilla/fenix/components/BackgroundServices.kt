@@ -56,7 +56,9 @@ import org.mozilla.fenix.utils.Settings
 @Suppress("LongParameterList")
 class BackgroundServices(
     private val context: Context,
+    /* Gexsi begin: disable push service
     private val push: Push,
+     */
     crashReporter: CrashReporter,
     historyStorage: Lazy<PlacesHistoryStorage>,
     bookmarkStorage: Lazy<PlacesBookmarksStorage>,
@@ -175,10 +177,12 @@ class BackgroundServices(
         // unexpected logouts.
         accountManager.register(accountAbnormalities)
 
+        /* Gexsi begin: disable push service
         // Enable push if it's configured.
         push.feature?.let { autoPushFeature ->
             FxaPushSupportFeature(context, accountManager, autoPushFeature, crashReporter)
         }
+         */
 
         SendTabFeature(accountManager) { device, tabs ->
             notificationManager.showReceivedTabs(context, device, tabs)

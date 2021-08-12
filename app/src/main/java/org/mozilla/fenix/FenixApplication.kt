@@ -341,6 +341,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         // Sets the PushFeature as the singleton instance for push messages to go to.
         // We need the push feature setup here to deliver messages in the case where the service
         // starts up the app first.
+        /* Gexsi begin: disable push service
         components.push.feature?.let {
             Logger.info("AutoPushFeature is configured, initializing it...")
 
@@ -355,6 +356,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             // Initialize the service. This could potentially be done in a coroutine in the future.
             it.initialize()
         }
+         */
     }
 
     private fun setupCrashReporting() {

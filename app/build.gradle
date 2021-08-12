@@ -9,7 +9,9 @@ apply plugin: 'jacoco'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'androidx.benchmark'
-
+// Gexsi begin: add google service
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 import com.android.build.OutputFile
 import groovy.json.JsonOutput
@@ -35,7 +37,7 @@ android {
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
-        versionName Config.generateDebugVersionName()
+        versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -94,7 +96,7 @@ android {
         debug {
             shrinkResources false
             minifyEnabled false
-            applicationIdSuffix ".sealegacy.blue.debug"
+            applicationIdSuffix ".sealegacy.blue"
             resValue "bool", "IS_DEBUG", "true"
             pseudoLocalesEnabled true
         }
@@ -506,6 +508,16 @@ dependencies {
     implementation Deps.google_play_store // Required for in-app reviews
 
     implementation Deps.webserver
+
+    // Gexsi begin: add google service
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     androidTestImplementation Deps.uiautomator
 // Removed pending AndroidX fixes

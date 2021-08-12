@@ -45,7 +45,9 @@ class MigratingFenixApplication : FenixApplication() {
 
     val migrationPushSubscriber by lazy {
         MigrationPushRenewer(
+            /* Gexsi begin: disable push service
             components.push.feature,
+             */
             components.migrationStore
         )
     }
