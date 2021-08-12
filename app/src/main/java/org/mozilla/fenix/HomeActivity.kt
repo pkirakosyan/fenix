@@ -181,6 +181,10 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
         // DO NOT MOVE ANYTHING ABOVE THIS addMarker CALL.
         components.core.engine.profiler?.addMarker("Activity.onCreate", "HomeActivity")
 
+        // Gexsi begin: Splashscreen, restore the regular theme before creating the views
+        setTheme(R.style.NormalTheme)
+        // Gexsi end
+
         components.strictMode.attachListenerToDisablePenaltyDeath(supportFragmentManager)
         // There is disk read violations on some devices such as samsung and pixel for android 9/10
         components.strictMode.resetAfter(StrictMode.allowThreadDiskReads()) {
@@ -200,10 +204,6 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
         )
 
         components.publicSuffixList.prefetch()
-
-        // Gexsi begin: Splashscreen, restore the regular theme before creating the views
-        setTheme(R.style.NormalTheme)
-        // Gexsi end
 
         setContentView(R.layout.activity_home)
 
