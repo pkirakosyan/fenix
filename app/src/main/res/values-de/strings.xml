@@ -1254,6 +1254,7 @@
     <string name="onboarding_header">Willkommen bei %s!</string>
     <!-- text for the Firefox Accounts section header -->
     <string name="onboarding_fxa_section_header">Haben Sie schon ein Konto?</string>
+    <string name="onboarding_feature_section_message"></string>
     <!-- text for the "What's New" onboarding card header -->
     <string name="onboarding_whats_new_header1">Sehen Sie sich an, was es Neues gibt</string>
     <!-- text for the "what's new" onboarding card description

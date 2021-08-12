@@ -44,6 +44,7 @@ import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingMa
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingPrivacyNoticeViewHolder
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingPrivateBrowsingViewHolder
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingSectionHeaderViewHolder
+import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingSectionMessageViewHolder
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingThemePickerViewHolder
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingToolbarPositionPickerViewHolder
 import org.mozilla.fenix.home.sessioncontrol.viewholders.onboarding.OnboardingTrackingProtectionViewHolder
@@ -145,6 +146,13 @@ sealed class AdapterItem(@LayoutRes val viewType: Int) {
     ) : AdapterItem(OnboardingSectionHeaderViewHolder.LAYOUT_ID) {
         override fun sameAs(other: AdapterItem) =
             other is OnboardingSectionHeader && labelBuilder == other.labelBuilder
+    }
+
+    data class OnboardingSectionMessage(
+        val labelBuilder: (Context) -> String
+    ) : AdapterItem(OnboardingSectionMessageViewHolder.LAYOUT_ID) {
+        override fun sameAs(other: AdapterItem) =
+            other is OnboardingSectionMessage && labelBuilder == other.labelBuilder
     }
 
     /* Gexsi begin: disable authentication
@@ -290,6 +298,7 @@ class SessionControlAdapter(
             )
             OnboardingHeaderViewHolder.LAYOUT_ID -> OnboardingHeaderViewHolder(view)
             OnboardingSectionHeaderViewHolder.LAYOUT_ID -> OnboardingSectionHeaderViewHolder(view)
+            OnboardingSectionMessageViewHolder.LAYOUT_ID -> OnboardingSectionMessageViewHolder(view)
             OnboardingAutomaticSignInViewHolder.LAYOUT_ID -> OnboardingAutomaticSignInViewHolder(
                 view
             )
@@ -372,6 +381,9 @@ class SessionControlAdapter(
             }
             is OnboardingSectionHeaderViewHolder -> holder.bind(
                 (item as AdapterItem.OnboardingSectionHeader).labelBuilder
+            )
+            is OnboardingSectionMessageViewHolder -> holder.bind(
+                (item as AdapterItem.OnboardingSectionMessage).labelBuilder
             )
             /* Gexsi begin: disable authentication
             is OnboardingManualSignInViewHolder -> holder.bind()
