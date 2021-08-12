@@ -228,7 +228,8 @@ android.applicationVariants.all { variant ->
     println("Flavor:            " + variant.flavorName)
     println("Telemetry enabled: " + !isDebug)
 
-    if (useReleaseVersioning) {
+    // Gexsi begin: disable release variant
+    if (useReleaseVersioning && false) {
         // The Google Play Store does not allow multiple APKs for the same app that all have the
         // same version code. Therefore we need to have different version codes for our ARM and x86
         // builds.
