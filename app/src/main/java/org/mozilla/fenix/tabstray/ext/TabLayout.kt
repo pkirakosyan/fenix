@@ -15,6 +15,8 @@ fun TabLayout.isPrivateModeSelected(): Boolean {
     return selectedTabPosition == TrayPagerAdapter.POSITION_PRIVATE_TABS
 }
 
+/* Gexsi begin: disable sync
 fun TabLayout.isSyncedModeSelected(): Boolean {
     return selectedTabPosition == TrayPagerAdapter.POSITION_SYNCED_TABS
 }
+ */

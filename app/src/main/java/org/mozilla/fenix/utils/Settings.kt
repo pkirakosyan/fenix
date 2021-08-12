@@ -287,7 +287,8 @@ class Settings(private val appContext: Context) : PreferencesHolder {
 
     val shouldShowSyncedTabsSuggestions by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_search_synced_tabs),
-        default = true
+        // Gexsi begin:
+        default = false
     )
 
     val shouldShowClipboardSuggestions by booleanPreference(

@@ -14,7 +14,9 @@ import org.mozilla.fenix.browser.browsingmode.BrowsingModeManager
 import org.mozilla.fenix.components.metrics.MetricController
 import org.mozilla.fenix.tabstray.TrayPagerAdapter.Companion.POSITION_NORMAL_TABS
 import org.mozilla.fenix.tabstray.TrayPagerAdapter.Companion.POSITION_PRIVATE_TABS
+/* Gexsi begin: disable sync
 import org.mozilla.fenix.tabstray.TrayPagerAdapter.Companion.POSITION_SYNCED_TABS
+ */
 
 class TabLayoutMediatorTest {
     private val modeManager: BrowsingModeManager = mockk(relaxed = true)
@@ -56,7 +58,9 @@ class TabLayoutMediatorTest {
 
         every { tabLayout.getTabAt(POSITION_NORMAL_TABS) }.answers { tab }
         every { tabLayout.getTabAt(POSITION_PRIVATE_TABS) }.answers { tab }
+        /* Gexsi begin: disable sync
         every { tabLayout.getTabAt(POSITION_SYNCED_TABS) }.answers { tab }
+         */
 
         mediator.selectTabAtPosition(POSITION_NORMAL_TABS)
         verify { tab.select() }

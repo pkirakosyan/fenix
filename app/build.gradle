@@ -187,7 +187,6 @@ android {
         gexsi {
             versionCode 32
             versionName "3.0.0"
-            applicationIdSuffix ".blue"
             applicationIdSuffix ".gexsi"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"gexsi\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"

@@ -76,11 +76,13 @@
             android:title="@string/preferences_passwords_logins_and_passwords" />
         -->
         
+        <!-- Gexsi begin: disable credit cards
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_credit_cards"
             android:title="@string/preferences_credit_cards" />
-
+        -->
+        
         <androidx.preference.Preference
             android:key="@string/pref_key_accessibility"
             app:iconSpaceReserved="false"
@@ -132,11 +134,12 @@
             app:iconSpaceReserved="false"
             android:title="@string/preferences_notifications" />
         -->
-        
+        <!-- Gexsi begin: disable data collection
         <androidx.preference.Preference
             android:key="@string/pref_key_data_choices"
             app:iconSpaceReserved="false"
             android:title="@string/preferences_data_collection" />
+        -->
 
     </androidx.preference.PreferenceCategory>
 
