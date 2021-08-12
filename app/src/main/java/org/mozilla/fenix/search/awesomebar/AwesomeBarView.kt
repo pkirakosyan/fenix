@@ -46,15 +46,12 @@ class AwesomeBarView(
     private val fromHomeFragment: Boolean
 ) {
     private val sessionProvider: SessionSuggestionProvider
+    /* Gexsi begin: removing suggstions
     private val historyStorageProvider: HistoryStorageSuggestionProvider
     private val combinedHistoryProvider: CombinedHistorySuggestionProvider
-    /* Gexsi begin: removing shortcuts
     private val shortcutsEnginePickerProvider: ShortcutsSuggestionProvider
-    */
     private val bookmarksStorageSuggestionProvider: BookmarksStorageSuggestionProvider
     private val syncedTabsStorageSuggestionProvider: SyncedTabsStorageSuggestionProvider
-
-    /* Gexsi begin: replacing with brand suggestion provider
     private val defaultSearchSuggestionProvider: SearchSuggestionProvider
     private val defaultSearchActionProvider: SearchActionProvider
     */
@@ -121,6 +118,7 @@ class AwesomeBarView(
                 excludeSelectedSession = !fromHomeFragment
             )
 
+        /* Gexsi begin: removing suggstions
         historyStorageProvider =
             HistoryStorageSuggestionProvider(
                 components.core.historyStorage,
@@ -159,7 +157,7 @@ class AwesomeBarView(
                     getDrawable(activity, R.drawable.ic_search_results_device_tablet)
                 )
             )
-
+        */
         val searchBitmap = getDrawable(activity, R.drawable.ic_search)!!.apply {
             colorFilter = createBlendModeColorFilterCompat(primaryTextColor, SRC_IN)
         }.toBitmap()
@@ -315,9 +313,8 @@ class AwesomeBarView(
     private fun getProvidersToRemove(state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
         val providersToRemove = mutableSetOf<AwesomeBar.SuggestionProvider>()
 
-        /* Gexsi begin: removing surtcuts
+        /* Gexsi begin: removing suggestions
          providersToRemove.add(shortcutsEnginePickerProvider)
-         */
 
         if (!state.showHistorySuggestions) {
             if (activity.settings().historyMetadataFeature) {
@@ -331,12 +328,12 @@ class AwesomeBarView(
             providersToRemove.add(bookmarksStorageSuggestionProvider)
         }
 
-        if (!state.showSearchSuggestions) {
-            providersToRemove.addAll(getSelectedSearchSuggestionProvider(state))
-        }
-
         if (!state.showSyncedTabsSuggestions) {
             providersToRemove.add(syncedTabsStorageSuggestionProvider)
+        }
+        */
+        if (!state.showSearchSuggestions) {
+            providersToRemove.addAll(getSelectedSearchSuggestionProvider(state))
         }
 
         if (activity.browsingModeManager.mode == BrowsingMode.Private) {
