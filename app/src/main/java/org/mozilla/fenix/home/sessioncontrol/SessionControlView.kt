@@ -188,12 +188,14 @@ private fun onboardingAdapterItems(): List<AdapterItem> {
     )
     */
 
+    /* Gexsi begin
     items.addAll(
         listOf(
             AdapterItem.OnboardingPrivacyNotice,
             AdapterItem.OnboardingFinish
         )
     )
+    */
 
     return items
 }
