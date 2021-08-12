@@ -45,6 +45,7 @@ object Versions {
     const val junit = "5.5.2"
     const val mockk = "1.12.0"
 
+    const val webserver = "4.9.0"
     const val mockwebserver = "4.9.0"
     const val uiautomator = "2.2.0"
     const val robolectric = "4.6.1"
@@ -227,6 +228,7 @@ object Deps {
     // --- END AndroidX test dependencies --- //
 
     const val mockwebserver = "com.squareup.okhttp3:mockwebserver:${Versions.mockwebserver}"
+    const val webserver = "com.squareup.okhttp3:okhttp:${Versions.webserver}"
     const val uiautomator = "androidx.test.uiautomator:uiautomator:${Versions.uiautomator}"
     const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
 

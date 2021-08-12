@@ -505,6 +505,8 @@ dependencies {
 
     implementation Deps.google_play_store // Required for in-app reviews
 
+    implementation Deps.webserver
+
     androidTestImplementation Deps.uiautomator
 // Removed pending AndroidX fixes
     androidTestImplementation "tools.fastlane:screengrab:2.0.0"
