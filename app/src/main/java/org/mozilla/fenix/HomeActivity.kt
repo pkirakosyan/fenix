@@ -86,6 +86,7 @@ import org.mozilla.fenix.ext.nav
 import org.mozilla.fenix.ext.setNavigationIcon
 import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.home.HomeFragmentDirections
+import org.mozilla.fenix.home.intent.ActivateSearchIntentProcessor
 import org.mozilla.fenix.home.intent.CrashReporterIntentProcessor
 import org.mozilla.fenix.home.intent.DefaultBrowserIntentProcessor
 import org.mozilla.fenix.home.intent.OpenBrowserIntentProcessor
@@ -162,7 +163,8 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
             StartSearchIntentProcessor(components.analytics.metrics),
             OpenBrowserIntentProcessor(this, ::getIntentSessionId),
             OpenSpecificTabIntentProcessor(this),
-            DefaultBrowserIntentProcessor(this, components.analytics.metrics)
+            DefaultBrowserIntentProcessor(this, components.analytics.metrics),
+            ActivateSearchIntentProcessor()
         )
     }
 
