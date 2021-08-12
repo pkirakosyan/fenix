@@ -15,6 +15,7 @@ import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.feature.tab.collections.TabCollection
 import mozilla.components.feature.top.sites.TopSite
+import org.mozilla.fenix.R
 import org.mozilla.fenix.components.tips.Tip
 import org.mozilla.fenix.ext.components
 import org.mozilla.fenix.historymetadata.HistoryMetadataGroup
@@ -154,9 +155,14 @@ private fun onboardingAdapterItems(): List<AdapterItem> {
 
     items.addAll(
         listOf(
+            AdapterItem.OnboardingSectionHeader {
+                it.getString(R.string.onboarding_feature_section_header)
+            }
+            /* Gexsi begin:
             AdapterItem.OnboardingThemePicker,
             AdapterItem.OnboardingToolbarPositionPicker,
             AdapterItem.OnboardingTrackingProtection
+            */
         )
     )
 
