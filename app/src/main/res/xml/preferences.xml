@@ -49,6 +49,7 @@
 
     <androidx.preference.PreferenceCategory
         android:title="@string/preferences_category_general"
+        android:key="category_general"
         android:layout="@layout/preference_category_no_icon_style">
         
         <!-- Gexsi begin: disable search engines
