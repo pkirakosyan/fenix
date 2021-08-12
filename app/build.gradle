@@ -198,7 +198,7 @@ android {
             versionName "1.0.0"
             applicationIdSuffix ".panda"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"panda\""
-            buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
+            buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\", \"es\", \"es-rAR\", \"es-rCL\", \"es-rES\", \"es-rMX\", \"fr\", \"it\", \"pt-rBR\", \"pt-rPT\"}"
             buildTypes.release.signingConfig signingConfigs.pandaConfig
         }
     }
