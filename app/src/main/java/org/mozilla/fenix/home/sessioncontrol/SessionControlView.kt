@@ -148,8 +148,9 @@ private fun showCollections(
 
 private fun privateModeAdapterItems() = listOf(AdapterItem.PrivateBrowsingDescription)
 
-private fun onboardingAdapterItems(onboardingState: OnboardingState): List<AdapterItem> {
-    val items: MutableList<AdapterItem> = mutableListOf(AdapterItem.OnboardingHeader)
+private fun onboardingAdapterItems(): List<AdapterItem> {
+    // Gexsi begin: remove onboarding header
+    val items: MutableList<AdapterItem> = mutableListOf()
 
     items.addAll(
         listOf(
@@ -158,6 +159,8 @@ private fun onboardingAdapterItems(onboardingState: OnboardingState): List<Adapt
             AdapterItem.OnboardingTrackingProtection
         )
     )
+
+    /* Gexsi begin: disable authentication header
     // Customize FxA items based on where we are with the account state:
     items.addAll(
         when (onboardingState) {
@@ -174,6 +177,7 @@ private fun onboardingAdapterItems(onboardingState: OnboardingState): List<Adapt
             OnboardingState.SignedIn -> listOf()
         }
     )
+    */
 
     items.addAll(
         listOf(
@@ -198,7 +202,8 @@ private fun HomeFragmentState.toAdapterList(): List<AdapterItem> = when (mode) {
         historyMetadata
     )
     is Mode.Private -> privateModeAdapterItems()
-    is Mode.Onboarding -> onboardingAdapterItems(mode.state)
+    // Gexsi begin:
+    is Mode.Onboarding -> onboardingAdapterItems()
 }
 
 private fun collectionTabItems(collection: TabCollection) =

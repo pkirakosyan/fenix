@@ -16,6 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
+import mozilla.components.browser.menu.BrowserMenuBuilder
 import mozilla.components.browser.menu.BrowserMenuHighlight
 import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
 import mozilla.components.browser.menu.item.BrowserMenuDivider
@@ -76,6 +77,11 @@ open class DefaultToolbarMenu(
         get() = store.state.selectedTab
 
     override val menuBuilder by lazy {
+        BrowserMenuBuilder(
+            coreMenuItems,
+            endOfMenuAlwaysVisible = shouldUseBottomToolbar,
+        )
+        /* Gexsi Begin: removing add-ons from the default menu
         WebExtensionBrowserMenuBuilder(
             items = coreMenuItems,
             endOfMenuAlwaysVisible = shouldUseBottomToolbar,
@@ -89,6 +95,7 @@ open class DefaultToolbarMenu(
             },
             appendExtensionSubMenuAtStart = shouldUseBottomToolbar
         )
+        */
     }
 
     override val menuToolbar by lazy {
@@ -216,9 +223,11 @@ open class DefaultToolbarMenu(
         onItemTapped.invoke(ToolbarMenu.Item.Downloads)
     }
 
+    /* Gexsi begin: disable extension
     val extensionsItem = WebExtensionPlaceholderMenuItem(
         id = WebExtensionPlaceholderMenuItem.MAIN_EXTENSIONS_MENU_ID
     )
+     */
 
     val findInPageItem = BrowserMenuImageText(
         label = context.getString(R.string.browser_menu_find_in_page),
@@ -259,10 +268,12 @@ open class DefaultToolbarMenu(
         onItemTapped.invoke(ToolbarMenu.Item.OpenInApp)
     }
 
+    /* Gexsi begin: disable report Site
     val reportSiteIssuePlaceholder = WebExtensionPlaceholderMenuItem(
         id = WebCompatReporterFeature.WEBCOMPAT_REPORTER_EXTENSION_ID,
         iconTintColorResource = primaryTextColor()
     )
+    */
 
     val addToHomeScreenItem = BrowserMenuImageText(
         label = context.getString(R.string.browser_menu_add_to_homescreen),
@@ -333,6 +344,7 @@ open class DefaultToolbarMenu(
         onItemTapped.invoke(ToolbarMenu.Item.Quit)
     }
 
+    /* Gexsi begin: disable sync tabs
     private fun getSyncItemTitle() =
         accountManager.accountProfileEmail ?: context.getString(R.string.sync_menu_sign_in)
 
@@ -345,6 +357,7 @@ open class DefaultToolbarMenu(
             ToolbarMenu.Item.SyncAccount(accountManager.accountState)
         )
     }
+    */
 
     @VisibleForTesting(otherwise = PRIVATE)
     val coreMenuItems by lazy {
@@ -356,8 +369,10 @@ open class DefaultToolbarMenu(
                 bookmarksItem,
                 historyItem,
                 downloadsItem,
+                /* Gexsi begin:
                 extensionsItem,
                 syncMenuItem,
+                 */
                 BrowserMenuDivider(),
                 getSetDefaultBrowserItem(),
                 getSetDefaultBrowserItem()?.let { BrowserMenuDivider() },
@@ -365,7 +380,9 @@ open class DefaultToolbarMenu(
                 desktopSiteItem,
                 customizeReaderView.apply { visible = ::shouldShowReaderViewCustomization },
                 openInApp.apply { visible = ::shouldShowOpenInApp },
+                /* Gexsi begin:
                 reportSiteIssuePlaceholder,
+                */
                 BrowserMenuDivider(),
                 addToHomeScreenItem.apply { visible = ::canAddToHomescreen },
                 installToHomescreen.apply { visible = ::canInstall },

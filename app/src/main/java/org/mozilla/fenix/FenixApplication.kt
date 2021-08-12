@@ -33,8 +33,10 @@ import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.lib.crash.CrashReporter
 import mozilla.components.service.glean.Glean
+/* Gexsi begin: disable telemetry
 import mozilla.components.service.glean.config.Configuration
 import mozilla.components.service.glean.net.ConceptFetchHttpUploader
+*/
 import mozilla.components.support.base.facts.register
 import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.logger.Logger
@@ -112,6 +114,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             return
         }
 
+        /* Gexsi Begin: do not initialise Glean
         if (Config.channel.isFenix) {
             // We need to always initialize Glean and do it early here.
             // Note that we are only initializing Glean here for "fenix" builds. "fennec" builds
@@ -119,7 +122,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             // user's choice from Fennec.
             initializeGlean()
         }
-
+        */
         PerfStartup.appOnCreateToGleanInit.stopAndAccumulate(subsectionThroughGleanTimerId)
 
         setupInMainProcessOnly()
@@ -128,6 +131,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         PerfStartup.applicationOnCreate.stopAndAccumulate(completeMethodDurationTimerId)
     }
 
+    /* Gexsi Begin: do not use Glean
     @OptIn(DelicateCoroutinesApi::class) // GlobalScope usage
     protected open fun initializeGlean() {
         val telemetryEnabled = settings().isTelemetryEnabled
@@ -152,6 +156,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             setStartupMetrics(store, settings())
         }
     }
+    */
 
     @CallSuper
     open fun setupInAllProcesses() {
@@ -353,10 +358,12 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
     }
 
     private fun setupCrashReporting() {
+        /* Gexsi Begin: do not report crashes to Mozilla
         components
             .analytics
             .crashReporter
             .install(this)
+         */
     }
 
     /**

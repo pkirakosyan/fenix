@@ -243,9 +243,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             resources.getString(R.string.pref_key_tabs) -> {
                 SettingsFragmentDirections.actionSettingsFragmentToTabsSettingsFragment()
             }
+            /* Gexsi begin: disable search engines
             resources.getString(R.string.pref_key_search_settings) -> {
                 SettingsFragmentDirections.actionSettingsFragmentToSearchEngineFragment()
             }
+            */
             resources.getString(R.string.pref_key_tracking_protection_settings) -> {
                 requireContext().metrics.track(Event.TrackingProtectionSettings)
                 SettingsFragmentDirections.actionSettingsFragmentToTrackingProtectionFragment()

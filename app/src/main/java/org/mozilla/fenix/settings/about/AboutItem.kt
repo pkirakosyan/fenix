@@ -11,7 +11,10 @@ sealed class AboutItem {
 }
 
 enum class AboutItemType {
+    /* Gexsi begin:
     WHATS_NEW, SUPPORT, PRIVACY_NOTICE, RIGHTS, LICENSING_INFO
+    */
+    WHATS_NEW, FAQ, CONTACT, TERMS_OF_USE, PRIVACY_POLICY, LICENSING_INFO
 }
 
 data class AboutPageItem(val type: AboutItem, val title: String)

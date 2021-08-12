@@ -40,6 +40,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.search.SearchEngine
@@ -200,6 +201,10 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
 
         components.publicSuffixList.prefetch()
 
+        // Gexsi begin: Splashscreen, restore the regular theme before creating the views
+        setTheme(R.style.NormalTheme)
+        // Gexsi end
+
         setContentView(R.layout.activity_home)
 
         // Must be after we set the content view
@@ -308,6 +313,20 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
         }
 
         isFenixTheDefaultBrowser()
+
+        // Gexsi begin: Splashscreen
+        // Now the app is started restore the original background to avoid weird splashscreen in oder Fragments
+        lifecycleScope.launch {
+            delay(300L)
+            withContext(Dispatchers.Main) {
+                val ta = theme.obtainStyledAttributes(intArrayOf(R.attr.homeBackground))
+                ta.getDrawable(0)?.let {
+                    window.setBackgroundDrawable(it)
+                }
+                ta.recycle()
+            }
+        }
+        // Gexsi end
     }
 
     override fun onStart() = PerfStartup.homeActivityOnStart.measureNoInline {

@@ -50,11 +50,14 @@
     <androidx.preference.PreferenceCategory
         android:title="@string/preferences_category_general"
         android:layout="@layout/preference_category_no_icon_style">
+        
+        <!-- Gexsi begin: disable search engines
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_search_settings"
             android:title="@string/preferences_search" />
-
+        -->
+        
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_tabs"
@@ -65,11 +68,13 @@
             app:iconSpaceReserved="false"
             android:title="@string/preferences_customize" />
 
+        <!-- Gexsi begin: disable logins and password
         <androidx.preference.Preference
             android:key="@string/pref_key_passwords"
             app:iconSpaceReserved="false"
             android:title="@string/preferences_passwords_logins_and_passwords" />
-
+        -->
+        
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_credit_cards"
@@ -120,11 +125,13 @@
             app:iconSpaceReserved="false"
             android:title="@string/preferences_delete_browsing_data_on_quit" />
 
+        <!-- Gexsi begin: disable notifications
         <androidx.preference.Preference
             android:key="@string/pref_key_notifications"
             app:iconSpaceReserved="false"
             android:title="@string/preferences_notifications" />
-
+        -->
+        
         <androidx.preference.Preference
             android:key="@string/pref_key_data_choices"
             app:iconSpaceReserved="false"
@@ -136,6 +143,8 @@
         android:title="@string/preferences_category_advanced"
         android:key="@string/pref_key_advanced"
         android:layout="@layout/preference_category_no_icon_style">
+        
+        <!-- Gexsi begin: disable addons
         <androidx.preference.Preference
             android:key="@string/pref_key_addons"
             app:iconSpaceReserved="false"
@@ -145,7 +154,8 @@
             android:key="@string/pref_key_override_amo_collection"
             app:iconSpaceReserved="false"
             android:title="@string/preferences_customize_amo_collection" />
-
+        -->
+        
         <androidx.preference.SwitchPreference
             android:defaultValue="false"
             android:key="@string/pref_key_open_links_in_external_app"

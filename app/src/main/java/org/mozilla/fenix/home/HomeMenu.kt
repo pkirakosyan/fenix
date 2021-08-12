@@ -46,12 +46,16 @@ class HomeMenu(
         object History : Item()
         object Downloads : Item()
         object Extensions : Item()
+        /* Gexsi begin: disable authentication
         data class SyncAccount(val accountState: AccountState) : Item()
+        */
         object WhatsNew : Item()
         object Help : Item()
         object Settings : Item()
         object Quit : Item()
+        /* Gexsi begin: disable sync
         object ReconnectSync : Item()
+        */
         data class DesktopMode(val checked: Boolean) : Item()
     }
 
@@ -64,6 +68,7 @@ class HomeMenu(
     private val shouldUseBottomToolbar = context.settings().shouldUseBottomToolbar
     private val accountManager = FenixAccountManager(context)
 
+    /* Gexsi begin: disable sync
     // 'Reconnect' and 'Quit' items aren't needed most of the time, so we'll only create the if necessary.
     private val reconnectToSyncItem by lazy {
         BrowserMenuHighlightableItem(
@@ -80,7 +85,7 @@ class HomeMenu(
             onItemTapped.invoke(Item.ReconnectSync)
         }
     }
-
+    */
     private val quitItem by lazy {
         BrowserMenuImageText(
             context.getString(R.string.delete_browsing_data_on_quit_action),
@@ -94,6 +99,7 @@ class HomeMenu(
     private fun getSyncItemTitle(): String =
         accountManager.accountProfileEmail ?: context.getString(R.string.sync_menu_sign_in)
 
+    /* Gexsi begin: disable sing in
     private val syncSignInMenuItem = BrowserMenuImageText(
         getSyncItemTitle(),
         R.drawable.ic_synced_tabs,
@@ -101,6 +107,7 @@ class HomeMenu(
     ) {
         onItemTapped.invoke(Item.SyncAccount(accountManager.accountState))
     }
+     */
 
     val desktopItem = BrowserMenuImageSwitch(
         imageResource = R.drawable.ic_desktop,
@@ -139,6 +146,7 @@ class HomeMenu(
             onItemTapped.invoke(Item.Downloads)
         }
 
+        /* Gexsi begin: disable extension
         val extensionsItem = BrowserMenuImageText(
             context.getString(R.string.browser_menu_add_ons),
             R.drawable.ic_addons_extensions,
@@ -146,9 +154,12 @@ class HomeMenu(
         ) {
             onItemTapped.invoke(Item.Extensions)
         }
+        */
 
+        // Gexsi begin: Replace what's new title with "About <app name>"
+        val appName = context.getString(R.string.app_name)
         val whatsNewItem = BrowserMenuHighlightableItem(
-            context.getString(R.string.browser_menu_whats_new),
+            context.getString(R.string.browser_menu_about, appName),
             R.drawable.ic_whats_new,
             iconTintColorResource = primaryTextColor,
             highlight = BrowserMenuHighlight.LowPriority(
@@ -159,6 +170,7 @@ class HomeMenu(
             onItemTapped.invoke(Item.WhatsNew)
         }
 
+        /* Gexsi begin: disable help
         val helpItem = BrowserMenuImageText(
             context.getString(R.string.browser_menu_help),
             R.drawable.ic_help,
@@ -166,6 +178,7 @@ class HomeMenu(
         ) {
             onItemTapped.invoke(Item.Help)
         }
+        */
 
         // Use nimbus to set the icon and title.
         val variables = experiments.getVariables(FeatureId.NIMBUS_VALIDATION)
@@ -177,6 +190,7 @@ class HomeMenu(
             onItemTapped.invoke(Item.Settings)
         }
 
+        /* Gexsi begin: disable auth
         // Only query account manager if it has been initialized.
         // We don't want to cause its initialization just for this check.
         val accountAuthItem =
@@ -187,19 +201,24 @@ class HomeMenu(
             } else {
                 null
             }
+        */
 
         val menuItems = listOfNotNull(
             bookmarksItem,
             historyItem,
             downloadsItem,
+            /* Gexsi begin:
             extensionsItem,
             syncSignInMenuItem,
             accountAuthItem,
+             */
             BrowserMenuDivider(),
             desktopItem,
             BrowserMenuDivider(),
             whatsNewItem,
+            /* Gexsi begin:
             helpItem,
+            */
             settingsItem,
             if (settings.shouldDeleteBrowsingDataOnQuit) quitItem else null
         ).also { items ->

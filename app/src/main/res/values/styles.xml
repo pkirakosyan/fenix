@@ -298,8 +298,15 @@
         <item name="bottomBarBackground">@drawable/private_home_bottom_bar_background_gradient</item>
         <item name="bottomBarBackgroundTop">@drawable/private_home_bottom_bar_background_gradient_top</item>
         <item name="privateBrowsingButtonBackground">@color/primary_text_private_theme</item>
-        <item name="privateBrowsingButtonAccent">@color/above_private_theme</item>
+        <!-- Gexsi begin: splash screen -->
+        <item name="privateBrowsingButtonAccent">@color/white_color</item>
     </style>
+    
+    <!-- Gexsi begin: splash screen -->
+    <style name="LaunchTheme" parent="NormalThemeBase">
+        <item name="android:windowBackground">@drawable/splashscreen_window_background</item>
+    </style>
+    <!-- Gexsi end -->
 
     <style name="Mozac.Browser.Menu" parent="" tools:ignore="UnusedResources">
         <item name="cardBackgroundColor">?above</item>

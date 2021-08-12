@@ -35,7 +35,9 @@ class ShareFragment : AppCompatDialogFragment() {
     }
     private lateinit var shareInteractor: ShareInteractor
     private lateinit var shareCloseView: ShareCloseView
+    /* Gexsi begin: disable authentication
     private lateinit var shareToAccountDevicesView: ShareToAccountDevicesView
+    */
     private lateinit var shareToAppsView: ShareToAppsView
 
     override fun onAttach(context: Context) {
@@ -90,8 +92,10 @@ class ShareFragment : AppCompatDialogFragment() {
         )
 
         view.shareWrapper.setOnClickListener { shareInteractor.onShareClosed() }
+        /* Gexsi begin: disable authentication
         shareToAccountDevicesView =
             ShareToAccountDevicesView(view.devicesShareLayout, shareInteractor)
+         */
 
         if (args.showPage) {
             // Show the previous fragment underneath the share background scrim
@@ -111,9 +115,11 @@ class ShareFragment : AppCompatDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /* Gexsi begin: disable authentication
         viewModel.devicesList.observe(viewLifecycleOwner) { devicesShareOptions ->
             shareToAccountDevicesView.setShareTargets(devicesShareOptions)
         }
+         */
         viewModel.appsList.observe(viewLifecycleOwner) { appsToShareTo ->
             shareToAppsView.setShareTargets(appsToShareTo)
         }

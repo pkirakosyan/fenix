@@ -913,15 +913,18 @@ class Settings(private val appContext: Context) : PreferencesHolder {
         default = true
     )
 
+    /* Gexsi begin: disable save logins
     var shouldPromptToSaveLogins by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_save_logins),
         default = true
     )
-
     var shouldAutofillLogins by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_autofill_logins),
         default = true
     )
+     */
+    var shouldPromptToSaveLogins = false
+    var shouldAutofillLogins = false
 
     var fxaHasSyncedItems by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_fxa_has_synced_items),

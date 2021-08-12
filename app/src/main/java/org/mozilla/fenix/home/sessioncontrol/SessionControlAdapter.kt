@@ -136,7 +136,10 @@ sealed class AdapterItem(@LayoutRes val viewType: Int) {
             other is TabInCollectionItem && tab.id == other.tab.id
     }
 
+    /* Gexsi begin: disable authentication header
     object OnboardingHeader : AdapterItem(OnboardingHeaderViewHolder.LAYOUT_ID)
+    */
+
     data class OnboardingSectionHeader(
         val labelBuilder: (Context) -> String
     ) : AdapterItem(OnboardingSectionHeaderViewHolder.LAYOUT_ID) {
@@ -144,10 +147,12 @@ sealed class AdapterItem(@LayoutRes val viewType: Int) {
             other is OnboardingSectionHeader && labelBuilder == other.labelBuilder
     }
 
+    /* Gexsi begin: disable authentication
     object OnboardingManualSignIn : AdapterItem(OnboardingManualSignInViewHolder.LAYOUT_ID)
     data class OnboardingAutomaticSignIn(
         val state: OnboardingState.SignedOutCanAutoSignIn
     ) : AdapterItem(OnboardingAutomaticSignInViewHolder.LAYOUT_ID)
+    */
 
     object ExperimentDefaultBrowserCard : AdapterItem(ExperimentDefaultBrowserCardViewHolder.LAYOUT_ID)
 
@@ -368,10 +373,12 @@ class SessionControlAdapter(
             is OnboardingSectionHeaderViewHolder -> holder.bind(
                 (item as AdapterItem.OnboardingSectionHeader).labelBuilder
             )
+            /* Gexsi begin: disable authentication
             is OnboardingManualSignInViewHolder -> holder.bind()
             is OnboardingAutomaticSignInViewHolder -> holder.bind(
                 (item as AdapterItem.OnboardingAutomaticSignIn).state.withAccount
             )
+            */
             is RecentTabViewHolder -> {
                 val (tab, tabPosition) = item as AdapterItem.RecentTabItem
                 holder.bindTab(tab).apply {

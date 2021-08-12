@@ -40,12 +40,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!-- Gexsi begin
         <FrameLayout
             android:id="@+id/devicesShareLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/divider_line" />
-
+        -->
+        
         <View
             android:id="@+id/divider_line"
             android:layout_width="match_parent"
@@ -54,11 +56,13 @@
             android:background="?neutralFaded"
             app:layout_constraintBottom_toTopOf="@id/appsShareLayout" />
 
+        <!-- Gexsi begin
         <androidx.constraintlayout.widget.Group
             android:id="@+id/devicesShareGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="divider_line,devicesShareLayout" />
+        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
