@@ -5,6 +5,7 @@
 package org.mozilla.fenix
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.StrictMode
@@ -28,7 +29,9 @@ import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.concept.base.crash.Breadcrumb
 import mozilla.components.concept.engine.webextension.WebExtension
 import mozilla.components.concept.engine.webextension.isUnsupported
+/* Gexsi begin: disable push
 import mozilla.components.concept.push.PushProcessor
+ */
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.lib.crash.CrashReporter
@@ -87,6 +90,7 @@ import org.mozilla.fenix.utils.Settings
 @Suppress("Registered", "TooManyFunctions", "LargeClass")
 open class FenixApplication : LocaleAwareApplication(), Provider {
     init {
+        instance = this
         recordOnInit() // DO NOT MOVE ANYTHING ABOVE HERE: the timing of this measurement is critical.
     }
 
@@ -728,5 +732,11 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         }
     }
 
+    companion object {
+        private var instance: FenixApplication? = null
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
+        }
+    }
     override fun getWorkManagerConfiguration() = Builder().setMinimumLoggingLevel(INFO).build()
 }

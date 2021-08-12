@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- brand start -->
+    <!-- App what's new url -->
+    <string name="whats_new_url">https://gexsi.com/about/projekte/</string>
+    <!-- App privacy policy url -->
+    <string name="privacy_policy">https://gexsi.com/about/datenschutz/</string>
+    <!-- App FAQ url -->
+    <string name="faq"></string>
+    <!-- App Terms of use url -->
+    <string name="terms_of_use">https://gexsi.com/about/nutzungsbedingungen/</string>
+    <!-- App Contact url -->
+    <string name="contact">https://gexsi.com/about/kontakt/</string>
+
+    <!-- Placeholder text shown in the search bar before a user enters text -->
+    <string name="search_hint">Suchen und Gutes tun...</string>
+
+    <!-- text for the Firefox Preview feature section header
+        The first parameter is the name of the app (e.g. Firefox Preview) -->
+    <string name="onboarding_feature_section_header">Die Suchmaschine für eine bessere Welt</string>
+    <!-- text for the Firefox Preview feature section message
+    The first parameter is the name of the app (e.g. Firefox Preview) -->
+    <string name="onboarding_feature_section_message">Wir sind ein Sozialunternehmen, das dem Gemeinwohl verpflichtet ist. Deine Suchanfragen generieren Einnahmen. Mit diesen unterstützen wir Projekte, die die Welt positiv verändern.</string>
+    </resources>

@@ -12,6 +12,7 @@ import androidx.core.net.toUri
 import mozilla.components.support.ktx.android.content.appVersionName
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import org.mozilla.fenix.BuildConfig
+import org.mozilla.fenix.FenixApplication
 import org.mozilla.fenix.IntentReceiverActivity
 import org.mozilla.fenix.R
 import org.mozilla.fenix.settings.account.AuthIntentReceiverActivity
@@ -107,7 +108,7 @@ object SupportUtils {
         val langTag = getLanguageTag(locale)
         return "https://www.mozilla.org/$langTag/$path"
         */
-        return "https://sealegacy.blue-search.org/privacy-policy.php"
+        return FenixApplication.applicationContext().getString(R.string.privacy_policy)
     }
 
     fun getWhatsNewUrl(context: Context) = getSumoURLForTopic(context, SumoTopic.WHATS_NEW)
