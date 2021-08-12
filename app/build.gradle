@@ -148,6 +148,12 @@ android {
             applicationIdSuffix ".sealegacy.blue"
             def deepLinkSchemeValue = "sealegacy.blue"
         }
+        gexsi {
+            versionCode 1
+            versionName "1.0.0"
+            applicationIdSuffix ".sealegacy.blue"
+            def deepLinkSchemeValue = "sealegacy.blue"
+        }
     }
 
     sourceSets {
@@ -161,6 +167,11 @@ android {
         sealegacyBlue {
             res {
                 srcDirs 'src/sealegacyBlue/res'
+            }
+        }
+        gexsi {
+            res {
+                srcDirs 'src/gexsi/res'
             }
         }
     }
