@@ -20,6 +20,8 @@ import org.gradle.internal.logging.text.StyledTextOutputFactory
 
 import static org.gradle.api.tasks.testing.TestResult.ResultType
 
+def keystoreProperties = new Properties()
+
 apply from: 'benchmark.gradle'
 
 android {
@@ -140,6 +142,39 @@ android {
 
     flavorDimensions "engine"
 
+    signingConfigs {
+        sealegacyBlueConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/seaLegacy_blue/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+        gexsiConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/gexsi/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+        pandaConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/panda/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
     productFlavors {
         sealegacyBlue {
             versionCode 3
@@ -147,6 +182,7 @@ android {
             applicationIdSuffix ".sealegacy.blue"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"sealegacy.blue\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\"}"
+            buildTypes.release.signingConfig signingConfigs.sealegacyBlueConfig
         }
         gexsi {
             versionCode 1
@@ -155,6 +191,7 @@ android {
             applicationIdSuffix ".gexsi"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"gexsi\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
+            buildTypes.release.signingConfig signingConfigs.gexsiConfig
         }
         panda {
             versionCode 1
@@ -162,6 +199,7 @@ android {
             applicationIdSuffix ".panda"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"panda\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
+            buildTypes.release.signingConfig signingConfigs.pandaConfig
         }
     }
 
