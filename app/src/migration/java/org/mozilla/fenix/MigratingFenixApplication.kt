@@ -43,14 +43,14 @@ class MigratingFenixApplication : FenixApplication() {
             .build()
     }
 
+    /* Gexsi begin: disable push service
     val migrationPushSubscriber by lazy {
         MigrationPushRenewer(
-            /* Gexsi begin: disable push service
             components.push.feature,
-             */
             components.migrationStore
         )
     }
+    */
 
     val migrationTelemetryListener by lazy {
         MigrationTelemetryListener(
@@ -73,7 +73,9 @@ class MigratingFenixApplication : FenixApplication() {
         super.setupInMainProcessOnly()
 
         // The rest of the migrations can happen now.
+        /* Gexsi begin: disable push
         migrationPushSubscriber.start()
+         */
         migrationTelemetryListener.start()
         migrator.startMigrationIfNeeded(components.migrationStore, MigrationService::class.java)
     }
