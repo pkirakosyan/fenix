@@ -177,24 +177,24 @@ android {
 
     productFlavors {
         sealegacyBlue {
-            versionCode 42
-            versionName "2.0.2"
+            versionCode 43
+            versionName "2.1.0"
             applicationIdSuffix ".sealegacy.blue"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"sealegacy.blue\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\"}"
             buildTypes.release.signingConfig signingConfigs.sealegacyBlueConfig
         }
         gexsi {
-            versionCode 34
-            versionName "3.0.1"
+            versionCode 35
+            versionName "3.1.0"
             applicationIdSuffix ".gexsi"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"gexsi\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
             buildTypes.release.signingConfig signingConfigs.gexsiConfig
         }
         panda {
-            versionCode 38
-            versionName "2.1.1"
+            versionCode 39
+            versionName "2.2.0"
             applicationIdSuffix ".panda"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"panda\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\", \"es\", \"es-rAR\", \"es-rCL\", \"es-rES\", \"es-rMX\", \"fr\", \"it\", \"pt-rBR\", \"pt-rPT\"}"
