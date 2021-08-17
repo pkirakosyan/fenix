@@ -185,8 +185,8 @@ android {
             buildTypes.release.signingConfig signingConfigs.sealegacyBlueConfig
         }
         gexsi {
-            versionCode 32
-            versionName "3.0.0"
+            versionCode 34
+            versionName "3.0.1"
             applicationIdSuffix ".gexsi"
             buildConfigField "String", "DEEP_LINK_SCHEME", "\"gexsi\""
             buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
