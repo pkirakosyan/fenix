@@ -40,6 +40,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.search.SearchEngine
@@ -83,6 +84,7 @@ import org.mozilla.fenix.ext.nav
 import org.mozilla.fenix.ext.setNavigationIcon
 import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.home.HomeFragmentDirections
+import org.mozilla.fenix.home.intent.ActivateSearchIntentProcessor
 import org.mozilla.fenix.home.intent.CrashReporterIntentProcessor
 import org.mozilla.fenix.home.intent.DefaultBrowserIntentProcessor
 import org.mozilla.fenix.home.intent.OpenBrowserIntentProcessor
@@ -160,7 +162,8 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
             StartSearchIntentProcessor(components.analytics.metrics),
             OpenBrowserIntentProcessor(this, ::getIntentSessionId),
             OpenSpecificTabIntentProcessor(this),
-            DefaultBrowserIntentProcessor(this, components.analytics.metrics)
+            DefaultBrowserIntentProcessor(this, components.analytics.metrics),
+            ActivateSearchIntentProcessor()
         )
     }
 
@@ -178,6 +181,10 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
     final override fun onCreate(savedInstanceState: Bundle?) {
         // DO NOT MOVE ANYTHING ABOVE THIS addMarker CALL.
         components.core.engine.profiler?.addMarker("Activity.onCreate", "HomeActivity")
+
+        // Gexsi begin: Splashscreen, restore the regular theme before creating the views
+        setTheme(R.style.NormalTheme)
+        // Gexsi end
 
         components.strictMode.attachListenerToDisablePenaltyDeath(supportFragmentManager)
         // There is disk read violations on some devices such as samsung and pixel for android 9/10
@@ -299,6 +306,20 @@ open class HomeActivity : LocaleAwareAppCompatActivity(), NavHostActivity {
         }
 
         isFenixTheDefaultBrowser()
+
+        // Gexsi begin: Splashscreen
+        // Now the app is started restore the original background to avoid weird splashscreen in oder Fragments
+        lifecycleScope.launch {
+            delay(300L)
+            withContext(Dispatchers.Main) {
+                val ta = theme.obtainStyledAttributes(intArrayOf(R.attr.homeBackground))
+                ta.getDrawable(0)?.let {
+                    window.setBackgroundDrawable(it)
+                }
+                ta.recycle()
+            }
+        }
+        // Gexsi end
     }
 
     override fun onStart() {

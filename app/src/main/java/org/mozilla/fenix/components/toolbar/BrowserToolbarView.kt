@@ -108,10 +108,12 @@ class BrowserToolbarView(
                     container.context,
                     ThemeManager.resolveAttribute(R.attr.primaryText, container.context)
                 )
+                /* Gexsi begin:
                 val secondaryTextColor = ContextCompat.getColor(
                     container.context,
                     ThemeManager.resolveAttribute(R.attr.secondaryText, container.context)
                 )
+                */
                 val separatorColor = ContextCompat.getColor(
                     container.context,
                     ThemeManager.resolveAttribute(R.attr.toolbarDivider, container.context)
@@ -124,7 +126,7 @@ class BrowserToolbarView(
                     securityIconSecure = primaryTextColor,
                     securityIconInsecure = primaryTextColor,
                     menu = primaryTextColor,
-                    hint = secondaryTextColor,
+                    hint = primaryTextColor,
                     separator = separatorColor,
                     trackingProtection = primaryTextColor,
                     highlight = ContextCompat.getColor(

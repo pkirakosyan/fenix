@@ -43,12 +43,14 @@ class MigratingFenixApplication : FenixApplication() {
             .build()
     }
 
+    /* Gexsi begin: disable push service
     val migrationPushSubscriber by lazy {
         MigrationPushRenewer(
             components.push.feature,
             components.migrationStore
         )
     }
+    */
 
     val migrationTelemetryListener by lazy {
         MigrationTelemetryListener(
@@ -61,15 +63,19 @@ class MigratingFenixApplication : FenixApplication() {
         // These migrations need to run before regular initialization happens.
         migrateBlocking()
 
+        /* Gexsi begin: we do not use Gleen
         // Now that we have migrated from Fennec whether the user wants to enable telemetry we can
         // initialize Glean
         initializeGlean()
+        */
 
         // Fenix application initialization can happen now.
         super.setupInMainProcessOnly()
 
         // The rest of the migrations can happen now.
+        /* Gexsi begin: disable push
         migrationPushSubscriber.start()
+         */
         migrationTelemetryListener.start()
         migrator.startMigrationIfNeeded(components.migrationStore, MigrationService::class.java)
     }

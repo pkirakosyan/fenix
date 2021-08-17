@@ -78,7 +78,9 @@ class TrayPagerAdapter(
         val adapter = when (position) {
             POSITION_NORMAL_TABS -> normalAdapter
             POSITION_PRIVATE_TABS -> privateAdapter
+            /* Gexsi begin: disable sync
             POSITION_SYNCED_TABS -> syncedTabsAdapter
+             */
             else -> throw IllegalStateException("View type does not exist.")
         }
         viewHolder.bind(adapter)
@@ -88,7 +90,9 @@ class TrayPagerAdapter(
         return when (position) {
             POSITION_NORMAL_TABS -> NormalBrowserPageViewHolder.LAYOUT_ID
             POSITION_PRIVATE_TABS -> PrivateBrowserPageViewHolder.LAYOUT_ID
+            /* Gexsi begin: disable sync
             POSITION_SYNCED_TABS -> SyncedTabsPageViewHolder.LAYOUT_ID
+             */
             else -> throw IllegalStateException("Unknown position.")
         }
     }
@@ -100,6 +104,8 @@ class TrayPagerAdapter(
 
         val POSITION_NORMAL_TABS = Page.NormalTabs.ordinal
         val POSITION_PRIVATE_TABS = Page.PrivateTabs.ordinal
+        /* Gexsi begin: disable sync
         val POSITION_SYNCED_TABS = Page.SyncedTabs.ordinal
+         */
     }
 }

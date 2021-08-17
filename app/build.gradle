@@ -9,7 +9,9 @@ apply plugin: 'jacoco'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 apply plugin: 'androidx.benchmark'
-
+// Gexsi begin: add google service
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 import com.android.build.OutputFile
 import groovy.json.JsonOutput
@@ -17,6 +19,8 @@ import org.gradle.internal.logging.text.StyledTextOutput.Style
 import org.gradle.internal.logging.text.StyledTextOutputFactory
 
 import static org.gradle.api.tasks.testing.TestResult.ResultType
+
+def keystoreProperties = new Properties()
 
 apply from: 'benchmark.gradle'
 
@@ -31,11 +35,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.mozilla"
+        applicationId "com.sst"
         minSdkVersion Config.minSdkVersion
         targetSdkVersion Config.targetSdkVersion
         versionCode 1
-        versionName Config.generateDebugVersionName()
+        versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -94,39 +98,12 @@ android {
         debug {
             shrinkResources false
             minifyEnabled false
-            applicationIdSuffix ".fenix.debug"
             resValue "bool", "IS_DEBUG", "true"
             pseudoLocalesEnabled true
         }
-        nightly releaseTemplate >> {
-            applicationIdSuffix ".fenix"
-            buildConfigField "boolean", "USE_RELEASE_VERSIONING", "true"
-            def deepLinkSchemeValue = "fenix-nightly"
-            buildConfigField "String", "DEEP_LINK_SCHEME", "\"$deepLinkSchemeValue\""
-            manifestPlaceholders = ["deepLinkScheme": deepLinkSchemeValue]
-        }
-        beta releaseTemplate >> {
-            buildConfigField "boolean", "USE_RELEASE_VERSIONING", "true"
-            applicationIdSuffix ".firefox_beta"
-            def deepLinkSchemeValue = "fenix-beta"
-            buildConfigField "String", "DEEP_LINK_SCHEME", "\"$deepLinkSchemeValue\""
-            manifestPlaceholders = [
-                    // This release type is meant to replace Firefox (Beta channel) and therefore needs to inherit
-                    // its sharedUserId for all eternity. See:
-                    // https://searchfox.org/mozilla-central/search?q=moz_android_shared_id&case=false&regexp=false&path=
-                    // Shipping an app update without sharedUserId can have
-                    // fatal consequences. For example see:
-                    //  - https://issuetracker.google.com/issues/36924841
-                    //  - https://issuetracker.google.com/issues/36905922
-                    "sharedUserId": "org.mozilla.firefox.sharedID",
-                    "deepLinkScheme": deepLinkSchemeValue
-            ]
-        }
         release releaseTemplate >> {
             buildConfigField "boolean", "USE_RELEASE_VERSIONING", "true"
-            applicationIdSuffix ".firefox"
-            def deepLinkSchemeValue = "fenix"
-            buildConfigField "String", "DEEP_LINK_SCHEME", "\"$deepLinkSchemeValue\""
+            def deepLinkSchemeValue = buildConfigFields['DEEP_LINK_SCHEME']?.value ?: ""
             manifestPlaceholders = [
                     // This release type is meant to replace Firefox (Release channel) and therefore needs to inherit
                     // its sharedUserId for all eternity. See:
@@ -165,16 +142,88 @@ android {
 
     flavorDimensions "engine"
 
+    signingConfigs {
+        sealegacyBlueConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/seaLegacy_blue/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+        gexsiConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/gexsi/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+        pandaConfig {
+            def keystorePropertiesFile = rootProject.file("./keystores/panda/keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    productFlavors {
+        sealegacyBlue {
+            versionCode 43
+            versionName "2.1.0"
+            applicationIdSuffix ".sealegacy.blue"
+            buildConfigField "String", "DEEP_LINK_SCHEME", "\"sealegacy.blue\""
+            buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\"}"
+            buildTypes.release.signingConfig signingConfigs.sealegacyBlueConfig
+        }
+        gexsi {
+            versionCode 35
+            versionName "3.1.0"
+            applicationIdSuffix ".gexsi"
+            buildConfigField "String", "DEEP_LINK_SCHEME", "\"gexsi\""
+            buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\"}"
+            buildTypes.release.signingConfig signingConfigs.gexsiConfig
+        }
+        panda {
+            versionCode 39
+            versionName "2.2.0"
+            applicationIdSuffix ".panda"
+            buildConfigField "String", "DEEP_LINK_SCHEME", "\"panda\""
+            buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", "new String[]{\"en-US\", \"de\", \"es\", \"es-rAR\", \"es-rCL\", \"es-rES\", \"es-rMX\", \"fr\", \"it\", \"pt-rBR\", \"pt-rPT\"}"
+            buildTypes.release.signingConfig signingConfigs.pandaConfig
+        }
+    }
+
     sourceSets {
         androidTest {
             resources.srcDirs += ['src/androidTest/resources']
         }
-        beta {
-            java.srcDirs = ['src/migration/java']
-        }
         release {
             java.srcDirs = ['src/migration/java']
             manifest.srcFile "src/migration/AndroidManifest.xml"
+        }
+        sealegacyBlue {
+            res {
+                srcDirs 'src/sealegacyBlue/res'
+            }
+        }
+        gexsi {
+            res {
+                srcDirs 'src/gexsi/res'
+            }
+        }
+        panda {
+            res {
+                srcDirs 'src/panda/res'
+            }
         }
     }
 
@@ -255,7 +304,8 @@ android.applicationVariants.all { variant ->
     println("Flavor:            " + variant.flavorName)
     println("Telemetry enabled: " + !isDebug)
 
-    if (useReleaseVersioning) {
+    // Gexsi begin: disable release variant
+    if (useReleaseVersioning && false) {
         // The Google Play Store does not allow multiple APKs for the same app that all have the
         // same version code. Therefore we need to have different version codes for our ARM and x86
         // builds.
@@ -280,7 +330,7 @@ android.applicationVariants.all { variant ->
 // -------------------------------------------------------------------------------------------------
 
     buildConfigField 'String', 'SENTRY_TOKEN', 'null'
-    if (!isDebug) {
+    if (!isDebug && false) {
         buildConfigField 'boolean', 'CRASH_REPORTING', 'true'
         // Reading sentry token from local file (if it exists). In a release task on taskcluster it will be available.
         try {
@@ -291,7 +341,7 @@ android.applicationVariants.all { variant ->
         buildConfigField 'boolean', 'CRASH_REPORTING', 'false'
     }
 
-    if (!isDebug) {
+    if (!isDebug && false) {
         buildConfigField 'boolean', 'TELEMETRY', 'true'
     } else {
         buildConfigField 'boolean', 'TELEMETRY', 'false'
@@ -531,6 +581,18 @@ dependencies {
 
     implementation Deps.google_play_store // Required for in-app reviews
 
+    implementation Deps.webserver
+
+    // Gexsi begin: add google service
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+
     androidTestImplementation Deps.uiautomator
 // Removed pending AndroidX fixes
     androidTestImplementation "tools.fastlane:screengrab:2.0.0"
@@ -657,6 +719,7 @@ tasks.register('printVariants') {
     }
 }
 
+/* Gexsi begin: disable translation build
 task buildTranslationArray {
     // This isn't running as a task, instead the array is build when the gradle file is parsed.
     // https://github.com/mozilla-mobile/fenix/issues/14175
@@ -675,6 +738,7 @@ task buildTranslationArray {
     def foundLocalesString = foundLocales.toString().replaceAll(',}','}')
     android.defaultConfig.buildConfigField "String[]", "SUPPORTED_LOCALE_ARRAY", foundLocalesString
 }
+ */
 
 afterEvaluate {
 

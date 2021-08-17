@@ -287,7 +287,8 @@ class Settings(private val appContext: Context) : PreferencesHolder {
 
     val shouldShowSyncedTabsSuggestions by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_search_synced_tabs),
-        default = true
+        // Gexsi begin:
+        default = false
     )
 
     val shouldShowClipboardSuggestions by booleanPreference(
@@ -464,7 +465,8 @@ class Settings(private val appContext: Context) : PreferencesHolder {
 
     var shouldFollowDeviceTheme by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_follow_device_theme),
-        default = false
+        // Gexsi begin:
+        default = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
     )
 
     var shouldUseTrackingProtection by booleanPreference(
@@ -506,7 +508,8 @@ class Settings(private val appContext: Context) : PreferencesHolder {
 
     val shouldUseAutoBatteryTheme by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_auto_battery_theme),
-        default = false
+        // Gexsi begin:
+        default = Build.VERSION.SDK_INT < Build.VERSION_CODES.P
     )
 
     val useStandardTrackingProtection by booleanPreference(
@@ -653,7 +656,8 @@ class Settings(private val appContext: Context) : PreferencesHolder {
     var shouldUseBottomToolbar by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_toolbar_bottom),
         // Default accessibility users to top toolbar
-        default = !touchExplorationIsEnabled && !switchServiceIsEnabled
+        // Gexsi begin:
+        default = false
     )
 
     val toolbarPosition: ToolbarPosition
@@ -913,15 +917,18 @@ class Settings(private val appContext: Context) : PreferencesHolder {
         default = true
     )
 
+    /* Gexsi begin: disable save logins
     var shouldPromptToSaveLogins by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_save_logins),
         default = true
     )
-
     var shouldAutofillLogins by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_autofill_logins),
         default = true
     )
+     */
+    var shouldPromptToSaveLogins = false
+    var shouldAutofillLogins = false
 
     var fxaHasSyncedItems by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_fxa_has_synced_items),

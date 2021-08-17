@@ -72,6 +72,7 @@ class TrackingProtectionFragment : PreferenceFragmentCompat() {
             true
         }
 
+        /* Gexsi begin: disable learn more
         val learnMorePreference = requirePreference<Preference>(R.string.pref_key_etp_learn_more)
         learnMorePreference.setOnPreferenceClickListener {
             (activity as HomeActivity).openToBrowserAndLoad(
@@ -86,6 +87,7 @@ class TrackingProtectionFragment : PreferenceFragmentCompat() {
             R.string.preference_enhanced_tracking_protection_explanation,
             getString(R.string.app_name)
         )
+        */
 
         val preferenceExceptions =
             requirePreference<Preference>(R.string.pref_key_tracking_protection_exceptions)

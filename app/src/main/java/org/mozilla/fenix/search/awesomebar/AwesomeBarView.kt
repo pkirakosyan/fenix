@@ -33,7 +33,8 @@ import org.mozilla.fenix.ext.components
 import org.mozilla.fenix.ext.settings
 import org.mozilla.fenix.search.SearchEngineSource
 import org.mozilla.fenix.search.SearchFragmentState
-
+import org.mozilla.fenix.search.awesomebar.searchProvider.BrandAdSearchSuggestionProvider
+import org.mozilla.fenix.search.awesomebar.searchProvider.BrandSearchSuggestionProvider
 /**
  * View that contains and configures the BrowserAwesomeBar
  */
@@ -45,6 +46,7 @@ class AwesomeBarView(
     private val fromHomeFragment: Boolean
 ) {
     private val sessionProvider: SessionSuggestionProvider
+    /* Gexsi begin: removing suggstions
     private val historyStorageProvider: HistoryStorageSuggestionProvider
     private val combinedHistoryProvider: CombinedHistorySuggestionProvider
     private val shortcutsEnginePickerProvider: ShortcutsSuggestionProvider
@@ -52,6 +54,10 @@ class AwesomeBarView(
     private val syncedTabsStorageSuggestionProvider: SyncedTabsStorageSuggestionProvider
     private val defaultSearchSuggestionProvider: SearchSuggestionProvider
     private val defaultSearchActionProvider: SearchActionProvider
+    */
+    private val brandSearchSuggestionProvider: BrandSearchSuggestionProvider
+    private var brandAdSearchSuggestionProvider: BrandAdSearchSuggestionProvider
+
     private val searchEngineSuggestionProvider: SearchEngineSuggestionProvider
     private val searchSuggestionProviderMap: MutableMap<SearchEngine, List<AwesomeBar.SuggestionProvider>>
     private var providersInUse = mutableSetOf<AwesomeBar.SuggestionProvider>()
@@ -112,6 +118,7 @@ class AwesomeBarView(
                 excludeSelectedSession = !fromHomeFragment
             )
 
+        /* Gexsi begin: removing suggstions
         historyStorageProvider =
             HistoryStorageSuggestionProvider(
                 components.core.historyStorage,
@@ -150,13 +157,14 @@ class AwesomeBarView(
                     getDrawable(activity, R.drawable.ic_search_results_device_tablet)
                 )
             )
-
+        */
         val searchBitmap = getDrawable(activity, R.drawable.ic_search)!!.apply {
             colorFilter = createBlendModeColorFilterCompat(primaryTextColor, SRC_IN)
         }.toBitmap()
 
         val searchWithBitmap = getDrawable(activity, R.drawable.ic_search_with)?.toBitmap()
 
+        /* Gexsi begin: replacing with brand suggestion provider
         defaultSearchSuggestionProvider =
             SearchSuggestionProvider(
                 context = activity,
@@ -182,7 +190,25 @@ class AwesomeBarView(
                 icon = searchBitmap,
                 showDescription = false
             )
-
+         */
+        brandSearchSuggestionProvider =
+            BrandSearchSuggestionProvider(
+                context = activity,
+                store = components.core.store,
+                searchUseCase = searchUseCase,
+                fetchClient = components.core.client,
+                icon = searchBitmap,
+                engine = engineForSpeculativeConnects,
+            )
+        brandAdSearchSuggestionProvider =
+            BrandAdSearchSuggestionProvider(
+                context = activity,
+                store = components.core.store,
+                loadUrlUseCase = loadUrlUseCase,
+                fetchClient = components.core.client,
+                engine = engineForSpeculativeConnects,
+            )
+        /* Gexsi begin: Frecency suggestions provider
         shortcutsEnginePickerProvider =
             ShortcutsSuggestionProvider(
                 store = components.core.store,
@@ -190,6 +216,7 @@ class AwesomeBarView(
                 selectShortcutEngine = interactor::onSearchShortcutEngineSelected,
                 selectShortcutEngineSettings = interactor::onClickSearchEngineSettings
             )
+         */
 
         searchEngineSuggestionProvider =
             SearchEngineSuggestionProvider(
@@ -250,6 +277,7 @@ class AwesomeBarView(
     private fun getProvidersToAdd(state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
         val providersToAdd = mutableSetOf<AwesomeBar.SuggestionProvider>()
 
+        /* Gexsi begin: disable history and bookmarks suggestions
         if (state.showHistorySuggestions) {
             if (activity.settings().historyMetadataFeature) {
                 providersToAdd.add(combinedHistoryProvider)
@@ -261,14 +289,17 @@ class AwesomeBarView(
         if (state.showBookmarkSuggestions) {
             providersToAdd.add(bookmarksStorageSuggestionProvider)
         }
+         */
 
         if (state.showSearchSuggestions) {
             providersToAdd.addAll(getSelectedSearchSuggestionProvider(state))
         }
 
+        /* Gexsi begin: disable synced tabs
         if (state.showSyncedTabsSuggestions) {
             providersToAdd.add(syncedTabsStorageSuggestionProvider)
         }
+         */
 
         if (activity.browsingModeManager.mode == BrowsingMode.Normal) {
             providersToAdd.add(sessionProvider)
@@ -282,7 +313,8 @@ class AwesomeBarView(
     private fun getProvidersToRemove(state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
         val providersToRemove = mutableSetOf<AwesomeBar.SuggestionProvider>()
 
-        providersToRemove.add(shortcutsEnginePickerProvider)
+        /* Gexsi begin: removing suggestions
+         providersToRemove.add(shortcutsEnginePickerProvider)
 
         if (!state.showHistorySuggestions) {
             if (activity.settings().historyMetadataFeature) {
@@ -296,12 +328,12 @@ class AwesomeBarView(
             providersToRemove.add(bookmarksStorageSuggestionProvider)
         }
 
-        if (!state.showSearchSuggestions) {
-            providersToRemove.addAll(getSelectedSearchSuggestionProvider(state))
-        }
-
         if (!state.showSyncedTabsSuggestions) {
             providersToRemove.add(syncedTabsStorageSuggestionProvider)
+        }
+        */
+        if (!state.showSearchSuggestions) {
+            providersToRemove.addAll(getSelectedSearchSuggestionProvider(state))
         }
 
         if (activity.browsingModeManager.mode == BrowsingMode.Private) {
@@ -314,8 +346,12 @@ class AwesomeBarView(
     private fun getSelectedSearchSuggestionProvider(state: SearchFragmentState): List<AwesomeBar.SuggestionProvider> {
         return when (state.searchEngineSource) {
             is SearchEngineSource.Default -> listOf(
+                /* Gexsi begin: replacing with brand suggestion provider
                 defaultSearchActionProvider,
                 defaultSearchSuggestionProvider
+                 */
+                brandAdSearchSuggestionProvider,
+                brandSearchSuggestionProvider
             )
             is SearchEngineSource.Shortcut -> getSuggestionProviderForEngine(
                 state.searchEngineSource.searchEngine
@@ -327,8 +363,10 @@ class AwesomeBarView(
     private fun handleDisplayShortcutsProviders() {
         view.removeAllProviders()
         providersInUse.clear()
+        /* Gexsi begin: Gexsi begin: removing shortcust
         providersInUse.add(shortcutsEnginePickerProvider)
         view.addProviders(shortcutsEnginePickerProvider)
+        */
     }
 
     private fun getSuggestionProviderForEngine(engine: SearchEngine): List<AwesomeBar.SuggestionProvider> {

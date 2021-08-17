@@ -88,7 +88,9 @@ class AccountUiView(
 
             // Signed-out.
         } else {
-            preferenceSignIn.isVisible = true
+            // Gexsi begin: disable authentication
+            preferenceSignIn.isVisible = false
+
             preferenceFirefoxAccount.isVisible = false
             preferenceFirefoxAccountAuthError.isVisible = false
             accountPreferenceCategory.isVisible = false

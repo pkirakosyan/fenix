@@ -260,7 +260,10 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             view = view
         )
 
+        /* Gexsi begin: disable qr scan
         qr_scan_button.visibility = if (context?.hasCamera() == true) View.VISIBLE else View.GONE
+         */
+        qr_scan_button.visibility = View.GONE
 
         qr_scan_button.setOnClickListener {
             if (!requireContext().hasCamera()) { return@setOnClickListener }
@@ -583,8 +586,12 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
 
         fill_link_from_clipboard.isVisible = shouldShowView
         fill_link_divider.isVisible = shouldShowView
-        pill_wrapper_divider.isVisible =
-            !(shouldShowView && requireComponents.settings.shouldUseBottomToolbar)
+
+        /* Gexsi begin:
+        pill_wrapper_divider.isVisible = !(shouldShowView && requireComponents.settings.shouldUseBottomToolbar)
+         */
+        pill_wrapper_divider.isVisible = false
+
         clipboard_url.isVisible = shouldShowView
         clipboard_title.isVisible = shouldShowView
         link_icon.isVisible = shouldShowView
@@ -609,8 +616,10 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         urlView?.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun updateSearchShortcutsIcon(searchState: SearchFragmentState) {
         view?.apply {
+            /* Gexsi begin:
             search_engines_shortcut_button.isVisible = searchState.areShortcutsAvailable
 
             val showShortcuts = searchState.showSearchShortcuts
@@ -620,6 +629,9 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             search_engines_shortcut_button.compoundDrawables[0]?.setTint(
                 requireContext().getColorFromAttr(color)
             )
+            */
+            search_engines_shortcut_button.isVisible = false
+            search_engines_shortcut_button.isChecked = false
         }
     }
 

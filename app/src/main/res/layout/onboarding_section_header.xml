@@ -8,6 +8,8 @@
         android:id="@+id/section_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/HeaderTextStyle"
+        android:textColor="@color/onboarding_message_color"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_bold"
         tools:text="@tools:sample/lorem"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="5dp" />

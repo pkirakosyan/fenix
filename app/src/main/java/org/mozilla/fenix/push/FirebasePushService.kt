@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 package org.mozilla.fenix.push
-
+/* Gexsi begin: disable push service
 import android.annotation.SuppressLint
 import mozilla.components.feature.push.AutoPushFeature
 import mozilla.components.lib.push.firebase.AbstractFirebasePushService
@@ -14,3 +14,4 @@ import mozilla.components.lib.push.firebase.AbstractFirebasePushService
  */
 @SuppressLint("MissingFirebaseInstanceTokenRefresh") // Implemented internally.
 class FirebasePushService : AbstractFirebasePushService()
+ */

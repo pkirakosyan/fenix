@@ -54,7 +54,9 @@ class Components(private val context: Context) {
     val backgroundServices by lazyMonitored {
         BackgroundServices(
             context,
+            /* Gexsi begin: disable push service
             push,
+             */
             analytics.crashReporter,
             core.lazyHistoryStorage,
             core.lazyBookmarksStorage,
@@ -148,7 +150,9 @@ class Components(private val context: Context) {
     val clipboardHandler by lazyMonitored { ClipboardHandler(context) }
     val migrationStore by lazyMonitored { MigrationStore() }
     val performance by lazyMonitored { PerformanceComponent() }
+    /* Gexsi begin: disable push service
     val push by lazyMonitored { Push(context, analytics.crashReporter) }
+     */
     val wifiConnectionMonitor by lazyMonitored { WifiConnectionMonitor(context as Application) }
     val strictMode by lazyMonitored { StrictModeManager(Config, this) }
 

@@ -107,11 +107,12 @@
 
         <!-- Drawables -->
         <item name="fenixLogo">@drawable/ic_logo_wordmark_normal</item>
+        <item name="fenixLogoAbout">@drawable/ic_logo_wordmark_normal_about</item>
         <item name="homeBackground">@color/foundation_normal_theme</item>
         <item name="bottomBarBackground">@drawable/home_bottom_bar_background</item>
         <item name="bottomBarBackgroundTop">@drawable/home_bottom_bar_background_top</item>
         <item name="privateBrowsingButtonBackground">@android:color/transparent</item>
-        <item name="privateBrowsingButtonAccent">@color/primary_text_normal_theme</item>
+        <item name="privateBrowsingButtonAccent">@color/private_browsing_button_accent_color</item>
 
         <item name="tabCounterTintColor">?primaryText</item>
     </style>
@@ -184,13 +185,13 @@
     <style name="DialogButtonStyleLight" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textColor">?accentBright</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="DialogButtonStyleDark" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textColor">?accentHighContrast</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="DialogStyleNormal" parent="DialogStyleLight"/>
@@ -294,12 +295,20 @@
 
         <!-- Drawables -->
         <item name="fenixLogo">@drawable/ic_logo_wordmark_private</item>
-        <item name="homeBackground">@drawable/private_home_background_gradient</item>
-        <item name="bottomBarBackground">@drawable/private_home_bottom_bar_background_gradient</item>
-        <item name="bottomBarBackgroundTop">@drawable/private_home_bottom_bar_background_gradient_top</item>
-        <item name="privateBrowsingButtonBackground">@color/primary_text_private_theme</item>
-        <item name="privateBrowsingButtonAccent">@color/above_private_theme</item>
+        <item name="fenixLogoAbout">@drawable/ic_logo_wordmark_private_about</item>
+        <item name="homeBackground">@color/private_dark_grey</item>
+        <item name="bottomBarBackground">@color/private_dark_grey</item>
+        <item name="bottomBarBackgroundTop">@color/private_dark_grey</item>
+        <item name="privateBrowsingButtonBackground">@color/private_browsing_button_background_color</item>
+        <!-- Gexsi begin: splash screen -->
+        <item name="privateBrowsingButtonAccent">@color/private_browsing_button_accent_color</item>
     </style>
+    
+    <!-- Gexsi begin: splash screen -->
+    <style name="LaunchTheme" parent="NormalThemeBase">
+        <item name="android:windowBackground">@drawable/splashscreen_window_background</item>
+    </style>
+    <!-- Gexsi end -->
 
     <style name="Mozac.Browser.Menu" parent="" tools:ignore="UnusedResources">
         <item name="cardBackgroundColor">?above</item>
@@ -331,7 +340,7 @@
         <item name="android:textColor">@color/button_text_color</item>
         <item name="rippleColor">?secondaryText</item>
         <item name="android:letterSpacing">0</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <!-- Ideally we should consolidate this with NeutralButton in the future -->
@@ -393,32 +402,32 @@
     <style name="HeaderTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?primaryText</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Header20TextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">?primaryText</item>
         <item name="android:textSize">20sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Header16TextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">?primaryText</item>
         <item name="android:textSize">16sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Header14TextStyle" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">?primaryText</item>
         <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Header12TextStyle" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">?secondaryText</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Body14TextStyle" parent="TextAppearance.MaterialComponents.Body2">
@@ -438,25 +447,25 @@
 
     <style name="Button12TextStyle" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">12sp</item>
-        <item name="fontFamily">@font/metropolis</item>
+        <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="SubtitleTextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">?secondaryText</item>
         <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="Subtitle12TextStyle" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textColor">?secondaryText</item>
         <item name="android:textSize">12sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="ToolbarTitleTextStyle" parent="HeaderTextStyle">
         <item name="android:textSize">20sp</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="ListItemTextStyle" parent="TextAppearance.MaterialComponents.Subtitle1">
@@ -525,7 +534,7 @@
     </style>
 
     <style name="SearchEngineShortcutsLabelStyle">
-        <item name="android:fontFamily">@font/metropolis_semibold</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:letterSpacing">0.15</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">?secondaryText</item>
@@ -544,7 +553,7 @@
     </style>
 
     <style name="MetropolisButton">
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="SearchClipboardUrlStyle" parent="SearchClipboardStyle">
@@ -560,7 +569,7 @@
         <item name="android:minHeight">40dp</item>
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:textColor">?accentUsedOnDarkBackground</item>
-        <item name="android:fontFamily">@font/metropolis_semibold</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="ShareHeaderTextStyle">
@@ -569,7 +578,7 @@
         <item name="android:textColor">@color/photonDarkGrey10</item>
         <item name="android:textSize">@dimen/share_header_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="ShareDialogStyle" parent="DialogStyleBase"/>
@@ -592,7 +601,7 @@
 
     <style name="PreferenceSectionHeader" parent="@android:style/Widget.ListView">
         <item name="android:textColor">?preferenceSectionHeader</item>
-        <item name="fontFamily">@font/metropolis_semibold</item>
+        <item name="fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="EngineTextField" parent="TextAppearance.AppCompat">

@@ -83,7 +83,7 @@
 
     <!-- Open in App "contextual feature recommendation" (CFR) -->
     <!-- Text for the info message. 'Firefox' intentionally hardcoded here.-->
-    <string name="open_in_app_cfr_info_message">You can set Firefox to automatically open links in apps.</string>
+    <string name="open_in_app_cfr_info_message">You can set App to automatically open links in apps.</string>
     <!-- Text for the positive action button -->
     <string name="open_in_app_cfr_positive_button_text">Go to settings</string>
     <!-- Text for the negative action button -->
@@ -146,7 +146,7 @@
     <!-- Browser menu button that sends a user to help articles -->
     <string name="browser_menu_help">Help</string>
     <!-- Browser menu button that sends a to a the what's new article -->
-    <string name="browser_menu_whats_new">What’s New</string>
+    <string name="browser_menu_about">About %1$s</string>
     <!-- Browser menu button that opens the settings menu -->
     <string name="browser_menu_settings">Settings</string>
     <!-- Browser menu button that opens a user's library -->
@@ -241,11 +241,11 @@
 
     <!-- Search Widget -->
     <!-- Content description for searching with a widget. Firefox is intentionally hardcoded.-->
-    <string name="search_widget_content_description">Open a new Firefox tab</string>
+    <string name="search_widget_content_description">Open a new tab</string>
     <!-- Text preview for smaller sized widgets -->
     <string name="search_widget_text_short">Search</string>
     <!-- Text preview for larger sized widgets -->
-    <string name="search_widget_text_long">Search the web</string>
+    <string name="search_widget_text_long">@string/search_hint</string>
     <!-- Content description (not visible, for screen readers etc.): Voice search -->
     <string name="search_widget_voice">Voice search</string>
 
@@ -1202,8 +1202,10 @@
     <!-- Text for onboarding welcome message
     The first parameter is the name of the app (e.g. Firefox Preview) -->
     <string name="onboarding_header">Welcome to %s!</string>
+    <string name="onboarding_feature_section_header">Get to know</string>
     <!-- text for the Firefox Accounts section header -->
     <string name="onboarding_fxa_section_header">Already have an account?</string>
+    <string name="onboarding_feature_section_message"></string>
     <!-- text for the "What's New" onboarding card header -->
     <string name="onboarding_whats_new_header1">See what’s new</string>
     <!-- text for the "what's new" onboarding card description
@@ -1421,7 +1423,13 @@
     <!-- About page link text to list of past crashes (like about:crashes on desktop) -->
     <string name="about_crashes">Crashes</string>
     <!-- About page link text to open privacy notice link -->
-    <string name="about_privacy_notice">Privacy notice</string>
+    <string name="about_privacy_notice">Privacy policy</string>
+    <!-- About page link text to open terms of use link -->
+    <string name="about_terms_of_use">Terms of use</string>
+    <!-- About page link text to open contact link -->
+    <string name="about_contact">Contact</string>
+    <!-- About page link text to FAQ link -->
+    <string name="about_faq">FAQ</string>
     <!-- About page link text to open know your rights link -->
     <string name="about_know_your_rights">Know your rights</string>
     <!-- About page link text to open licensing information link -->

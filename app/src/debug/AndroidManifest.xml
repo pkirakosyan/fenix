@@ -18,7 +18,8 @@
 
     <application
             tools:replace="android:name"
-            android:name="org.mozilla.fenix.DebugFenixApplication">
+            android:name="org.mozilla.fenix.DebugFenixApplication"
+            android:extractNativeLibs="true">
 
         <activity android:name=".autofill.AutofillUnlockActivity"
             android:exported="false"

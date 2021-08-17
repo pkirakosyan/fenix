@@ -16,7 +16,9 @@ import org.mozilla.fenix.components.metrics.Event
 import org.mozilla.fenix.ext.components
 import org.mozilla.fenix.tabstray.ext.isNormalModeSelected
 import org.mozilla.fenix.tabstray.ext.isPrivateModeSelected
+/* Gexsi begin: disable sync
 import org.mozilla.fenix.tabstray.ext.isSyncedModeSelected
+ */
 
 class TabsTrayMenu(
     private val context: Context,
@@ -36,8 +38,10 @@ class TabsTrayMenu(
         }
 
     private val shouldShowSelectOrShare = { tabLayout.isNormalModeSelected() && checkOpenTabs }
-    private val shouldShowTabSetting = { !tabLayout.isSyncedModeSelected() }
+    /* Gexsi begin: disable sync
     private val shouldShowAccountSetting = { tabLayout.isSyncedModeSelected() }
+     */
+    private val shouldShowTabSetting = { true }
 
     sealed class Item {
         object ShareAllTabs : Item()
@@ -67,12 +71,14 @@ class TabsTrayMenu(
                 onItemTapped.invoke(Item.ShareAllTabs)
             }.apply { visible = shouldShowSelectOrShare },
 
+            /* Gexsi begin: disable account
             SimpleBrowserMenuItem(
                 context.getString(R.string.tab_tray_menu_account_settings),
                 textColorResource = R.color.primary_text_normal_theme
             ) {
                 onItemTapped.invoke(Item.OpenAccountSettings)
             }.apply { visible = shouldShowAccountSetting },
+             */
 
             SimpleBrowserMenuItem(
                 context.getString(R.string.tab_tray_menu_tab_settings),

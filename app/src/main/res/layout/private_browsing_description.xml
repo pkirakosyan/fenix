@@ -21,11 +21,12 @@
         android:paddingTop="4dp"
         android:scrollHorizontally="false"
         android:textAlignment="viewStart"
-        android:textColor="?primaryText"
+        android:textColor="@color/private_mode_message_color"
         android:textDirection="locale"
         android:textSize="14sp"
         tools:text="@string/private_browsing_placeholder_description_2" />
 
+    <!-- Gexsi Begin: disable common myths about private tabs
     <org.mozilla.fenix.utils.LinkTextView
         android:id="@+id/private_session_common_myths"
         android:layout_width="match_parent"
@@ -40,4 +41,5 @@
         android:text="@string/private_browsing_common_myths"
         android:textColor="?primaryText"
         android:textSize="14sp" />
+     -->
 </LinearLayout>

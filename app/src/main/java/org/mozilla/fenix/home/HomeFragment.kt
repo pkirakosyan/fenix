@@ -852,6 +852,7 @@ class HomeFragment : Fragment() {
                         )
                         requireComponents.analytics.metrics.track(Event.HomeMenuSettingsItemClicked)
                     }
+                    /* Gexsi begin: disable sync account
                     is HomeMenu.Item.SyncAccount -> {
                         hideOnboardingIfNeeded()
                         val directions = when (it.accountState) {
@@ -867,6 +868,7 @@ class HomeFragment : Fragment() {
                             directions
                         )
                     }
+                    */
                     HomeMenu.Item.Bookmarks -> {
                         hideOnboardingIfNeeded()
                         nav(
@@ -923,6 +925,7 @@ class HomeFragment : Fragment() {
                             }
                         )
                     }
+                    /* Gexsi begin: disable sync and extensions
                     HomeMenu.Item.ReconnectSync -> {
                         hideOnboardingIfNeeded()
                         nav(
@@ -936,6 +939,7 @@ class HomeFragment : Fragment() {
                             HomeFragmentDirections.actionGlobalAddonsManagementFragment()
                         )
                     }
+                    */
                     is HomeMenu.Item.DesktopMode -> {
                         context.settings().openNextTabInDesktopMode = it.checked
                     }

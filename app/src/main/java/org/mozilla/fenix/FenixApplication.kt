@@ -5,6 +5,7 @@
 package org.mozilla.fenix
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.StrictMode
@@ -28,13 +29,17 @@ import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.concept.base.crash.Breadcrumb
 import mozilla.components.concept.engine.webextension.WebExtension
 import mozilla.components.concept.engine.webextension.isUnsupported
+/* Gexsi begin: disable push
 import mozilla.components.concept.push.PushProcessor
+ */
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.lib.crash.CrashReporter
 import mozilla.components.service.glean.Glean
+/* Gexsi begin: disable telemetry
 import mozilla.components.service.glean.config.Configuration
 import mozilla.components.service.glean.net.ConceptFetchHttpUploader
+*/
 import mozilla.components.support.base.facts.register
 import mozilla.components.support.base.log.Log
 import mozilla.components.support.base.log.logger.Logger
@@ -84,6 +89,7 @@ import org.mozilla.fenix.utils.Settings
 @Suppress("Registered", "TooManyFunctions", "LargeClass")
 open class FenixApplication : LocaleAwareApplication(), Provider {
     init {
+        instance = this
         recordOnInit() // DO NOT MOVE ANYTHING ABOVE HERE: the timing of this measurement is critical.
     }
 
@@ -110,6 +116,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             return
         }
 
+        /* Gexsi Begin: do not initialise Glean
         if (Config.channel.isFenix) {
             // We need to always initialize Glean and do it early here.
             // Note that we are only initializing Glean here for "fenix" builds. "fennec" builds
@@ -117,6 +124,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             // user's choice from Fennec.
             initializeGlean()
         }
+        */
 
         setupInMainProcessOnly()
 
@@ -124,6 +132,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         PerfStartup.applicationOnCreate.stopAndAccumulate(completeMethodDurationTimerId)
     }
 
+    /* Gexsi Begin: do not use Glean
     @OptIn(DelicateCoroutinesApi::class) // GlobalScope usage
     protected open fun initializeGlean() {
         val telemetryEnabled = settings().isTelemetryEnabled
@@ -148,6 +157,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             setStartupMetrics(store, settings())
         }
     }
+    */
 
     @CallSuper
     open fun setupInAllProcesses() {
@@ -328,6 +338,7 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         // Sets the PushFeature as the singleton instance for push messages to go to.
         // We need the push feature setup here to deliver messages in the case where the service
         // starts up the app first.
+        /* Gexsi begin: disable push service
         components.push.feature?.let {
             Logger.info("AutoPushFeature is configured, initializing it...")
 
@@ -342,13 +353,16 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
             // Initialize the service. This could potentially be done in a coroutine in the future.
             it.initialize()
         }
+         */
     }
 
     private fun setupCrashReporting() {
+        /* Gexsi Begin: do not report crashes to Mozilla
         components
             .analytics
             .crashReporter
             .install(this)
+         */
     }
 
     /**
@@ -711,5 +725,11 @@ open class FenixApplication : LocaleAwareApplication(), Provider {
         }
     }
 
+    companion object {
+        private var instance: FenixApplication? = null
+        fun applicationContext() : Context {
+            return instance!!.applicationContext
+        }
+    }
     override fun getWorkManagerConfiguration() = Builder().setMinimumLoggingLevel(INFO).build()
 }

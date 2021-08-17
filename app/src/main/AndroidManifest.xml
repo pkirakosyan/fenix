@@ -21,7 +21,8 @@
     <!-- Needed to interact with all apps installed on a device -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
-
+    
+    <!-- Gexsi begin: in order to display the splash screen, we changed the theme -->
     <application
         android:name=".FenixApplication"
         android:allowBackup="false"
@@ -30,7 +31,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/NormalTheme"
+        android:theme="@style/LaunchTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
 
@@ -54,7 +55,7 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity-alias>
-
+        
         <!--
           Fennec declared entry for homescreen pinned shortcuts.
         -->
@@ -80,6 +81,10 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true"
             android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="${applicationId}.TextSearchActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -272,6 +277,7 @@
         <service android:name=".session.PrivateNotificationService"
                 android:exported="false" />
 
+        <!-- Gexsi begin: disable push service
         <service
             android:name=".push.FirebasePushService"
             android:exported="false">
@@ -279,16 +285,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        -->
 
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="true" />
         <meta-data
             android:name="firebase_analytics_collection_enabled"
-            android:value="false" />
+            android:value="true" />
         <meta-data
             android:name="firebase_analytics_collection_deactivated"
-            android:value="true" />
+            android:value="false" />
         <!-- Removes the default Workmanager  initialization so that we can use on-demand initializer. -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
