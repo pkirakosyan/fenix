@@ -50,7 +50,7 @@ class MigratingFenixApplication : FenixApplication() {
             components.migrationStore
         )
     }
-     */
+    */
 
     val migrationTelemetryListener by lazy {
         MigrationTelemetryListener(
